@@ -1,0 +1,33 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        
+        int n=nums.length;
+        int suffixsum[]=new int[n];
+        suffixsum[n-1]=nums[n-1];
+        for(int i=n-2;i>=0;i--)
+        {
+            suffixsum[i]=suffixsum[i+1]*nums[i];
+        }
+        int prefixsum =1;
+        for(int i=0;i<n-1;i++)
+        {
+            suffixsum[i] = suffixsum[i+1]*prefixsum;
+            prefixsum*=nums[i];
+        }
+        suffixsum[n-1]=prefixsum;
+        // int res[]=new int[n];
+        // res[0]=1;
+        // int prefixSideMultiplication=1;
+        // for(int i=1;i<n;i++)
+        // {
+        //     res[i]=res[i-1]*nums[i-1];
+        // }
+        // int suffixSideMultiplication=1;
+        // for(int i=n-1;i>=0;i--)
+        // {
+        //     res[i]*=rightSideMultiplication;
+        //     rightSideMultiplication*=nums[i];
+        // }
+        return suffixsum;
+    }
+}
